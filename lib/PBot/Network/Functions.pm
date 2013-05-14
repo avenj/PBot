@@ -4,6 +4,19 @@ use strict;
 use warnings;
 use PBot::Channel;
 
+sub connect
+{
+    my $self = shift;
+    $self->connection(my $connection = PBot::Connection->new(
+        host    => $self->host,
+        port    => $self->port,
+        ssl     => $self->ssl,
+        network => $self
+    ));
+    $self->connection->go();
+    $self->connection->on(data => sub { PBot->instance->fire(debug => "[".$self->name."] << ".$_[1]); });
+}
+
 sub write
 {
     my ($self, $data) = @_;
