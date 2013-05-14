@@ -13,4 +13,6 @@ sub notice
 {
     my ($self, $data) = @_;
     $self->network->write("NOTICE ".$self->name." :$data");
-}   
+}
+
+1;

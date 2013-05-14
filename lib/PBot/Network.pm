@@ -5,6 +5,8 @@ use warnings;
 use Moo;
 use MooX::Types::MooseLike::Base qw(:all);
 use PBot::Connection;
+use PBot::Channel;
+use PBot::User;
 use base qw(EventedObject PBot::Network::Functions);
 
 has name => (
@@ -35,20 +37,18 @@ has channels => (
     is       => 'rw',
     isa      => ArrayRef[InstanceOf['PBot::Channel']],
     default  => sub { [ ] },
-    weak_ref => 1
 );
 
 has users => (
     is       => 'rw',
     isa      => ArrayRef[InstanceOf['PBot::User']],
     default  => sub { [ ] },
-    weak_ref => 1
 );
 
-has channel_modes => (
-    is      => 'ro',
-    isa     => ArrayRef[InstanceOf['PBot::Channel::Mode']],
-    default => sub { [ ] }
+has status_modes => (
+    is      => 'rwp',
+    isa     => HashRef,
+    default => sub { { } }
 );
 
 has connection => (

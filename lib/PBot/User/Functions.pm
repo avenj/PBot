@@ -29,3 +29,4 @@ sub del_from_channel
     @{$self->channels} = grep { $channelObj != $_ } @{$self->channels};
 }
 
+1;

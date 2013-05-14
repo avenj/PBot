@@ -23,7 +23,7 @@ sub add_user
 sub del_user
 {
     my ($self, $channelObj) = @_;
-    return if !ref $channelObj || blessed($channelObj) ne 'PBot::Channel';
+    return if !ref $channelObj || blessed($channelObj) ne 'PBot::User';
     @{$self->channels} = grep { $channelObj != $_ } @{$self->channels};
 }
 
@@ -37,3 +37,4 @@ sub del_mode
 
 }
 
+1;
