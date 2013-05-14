@@ -51,13 +51,6 @@ has bind => (
     required => 0
 );
 
-has network => (
-    is       => 'ro',
-    isa      => InstanceOf['PBot::Network'],
-    required => 1,
-    weak_ref => 1
-);
-
 sub go
 {
     my $self = shift;

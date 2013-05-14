@@ -59,7 +59,7 @@ sub connect
         network => $self
     ));
     $self->connection->go();
-    $self->connection->on(data => sub { print "irc: $_[1]\n"; });
+    $self->connection->on(data => sub { PBot->instance->fire(debug => "[".$self->name."] << ".$_[1]); });
 }
 
 1;
