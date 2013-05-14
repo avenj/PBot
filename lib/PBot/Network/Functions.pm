@@ -4,6 +4,14 @@ use strict;
 use warnings;
 use PBot::Channel;
 
+sub write
+{
+    my ($self, $data) = @_;
+    chomp $data;
+    $self->connection->write("$data\r\n");
+    PBot->instance->fire(debug => "[".$self->name."] >> ".$data);
+}
+
 sub add_channel
 {
     my ($self, $channelName) = @_;
