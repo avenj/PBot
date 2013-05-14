@@ -1,5 +1,7 @@
 package PBot::Channel;
 
+use strict;
+use warnings;
 use Moo;
 use MooX::Types::MooseLike::Base qw(:all);
 
@@ -17,13 +19,13 @@ has topic => (
 has modes => (
     is      => 'rw',
     isa     => HashRef,
-    default => [ ],
+    default => sub { { } },
 );
 
 has users => (
     is       => 'rw',
     isa      => ArrayRef[InstanceOf['PBot::User']],
-    default  => { },
+    default  => sub { [ ] },
     weak_ref => 1
 );
 
@@ -60,3 +62,5 @@ sub del_mode
 {
 
 }
+
+1;

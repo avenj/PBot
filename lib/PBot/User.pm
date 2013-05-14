@@ -1,5 +1,7 @@
 package PBot::User;
 
+use strict;
+use warnings;
 use Moo;
 use MooX::Types::MooseLike::Base qw(:all);
 
@@ -24,7 +26,7 @@ has host => (
 has channels => (
     is       => 'rw',
     isa      => ArrayRef[InstanceOf['PBot::Channel']],
-    default  => [ ],
+    default  => sub { [ ] },
     weak_ref => 1
 );
 
@@ -51,3 +53,5 @@ sub del_from_channel
     return if !ref $channelObj || blessed($channelObj) ne 'PBot::Channel';
     @{$self->channels} = grep { $channelObj != $_ } @{$self->channels};
 }
+
+1;
