@@ -5,7 +5,7 @@ use warnings;
 use Moo;
 use MooX::Types::MooseLike::Base qw(:all);
 use PBot::Connection;
-use base qw(EventedObject);
+use base qw(EventedObject PBot::Network::Functions);
 
 has name => (
     is       => 'ro',
@@ -29,6 +29,12 @@ has ssl => (
     is      => 'ro',
     isa     => Bool,
     default => sub { 0 }
+);
+
+has channels => (
+    is      => 'ro',
+    isa     => ArrayRef[InstanceOf['PBot::Channel']],
+    default => sub { [ ] }
 );
 
 has channel_modes => (
@@ -55,6 +61,5 @@ sub connect
     $self->connection->go();
     $self->connection->on(data => sub { print "irc: $_[1]\n"; });
 }
-
 
 1;
