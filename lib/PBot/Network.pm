@@ -32,9 +32,17 @@ has ssl => (
 );
 
 has channels => (
-    is      => 'ro',
-    isa     => ArrayRef[InstanceOf['PBot::Channel']],
-    default => sub { [ ] }
+    is       => 'rw',
+    isa      => ArrayRef[InstanceOf['PBot::Channel']],
+    default  => sub { [ ] },
+    weak_ref => 1
+);
+
+has users => (
+    is       => 'rw',
+    isa      => ArrayRef[InstanceOf['PBot::User']],
+    default  => sub { [ ] },
+    weak_ref => 1
 );
 
 has channel_modes => (
