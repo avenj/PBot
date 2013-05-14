@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use Moo;
 use MooX::Types::MooseLike::Base qw(:all);
+use base qw(EventedObject);
 
 has name => (
     is       => 'rw',
