@@ -15,7 +15,7 @@ sub write
 sub add_channel
 {
     my ($self, $channelName) = @_;
-    my $channel = PBot::Channel->new(name => $channelName);
+    my $channel = PBot::Channel->new(name => $channelName, network => $self);
     push(@{$self->channels}, $channel);
 }
 
