@@ -3,6 +3,7 @@ package PBot::Network::Functions;
 use strict;
 use warnings;
 use PBot::Channel;
+use PBot::User;
 
 sub connect
 {
@@ -32,6 +33,12 @@ sub add_channel
     push(@{$self->channels}, $channel);
 }
 
+sub del_channel
+{
+
+}
+
+
 sub find_channel
 {
     my ($self, $channelName) = @_;
@@ -41,5 +48,29 @@ sub find_channel
     }
     return undef;
 }
+
+sub add_user
+{
+    my ($self, $userNick, $userIdent, $userHost) = @_;
+    my $channel = PBot::User->new(nick => $userNick, user => $userIdent, host => $userHost,  network => $self);
+    push(@{$self->users}, $channel);
+}
+
+sub del_user
+{
+
+}
+
+
+sub find_user
+{
+    my ($self, $userNick) = @_;
+    foreach (@{$self->users})
+    {
+        return $_ if lc($_->name) eq lc($userNick);
+    }
+    return undef;
+}
+
 
 1;
