@@ -5,6 +5,8 @@ use warnings;
 use PBot::Channel;
 use PBot::User;
 
+use Moo::Role;
+
 sub connect
 {
     my $self = shift;

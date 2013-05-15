@@ -7,7 +7,9 @@ use MooX::Types::MooseLike::Base qw(:all);
 use PBot::Connection;
 use PBot::Channel;
 use PBot::User;
-use base qw(EventedObject PBot::Network::Functions);
+
+use parent 'EventedObject';
+with 'PBot::Network::Functions';
 
 has name => (
     is       => 'ro',
