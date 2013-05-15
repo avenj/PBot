@@ -8,7 +8,6 @@ use base qw(EventedObject);
 
 my $socketPackage;
 my $streamPackage;
-my $streamObject;
 
 has ssl => (
     is       => 'ro',
@@ -51,6 +50,10 @@ has bind => (
     required => 0
 );
 
+has stream => (
+    is      => 'rwp'
+);
+
 sub go
 {
     my $self = shift;
@@ -61,7 +64,7 @@ sub go
         LocalAddr => $self->bind,
         Timeout   => 10
     );
-    $streamObject = $streamPackage->new(
+    my $streamObject = $streamPackage->new(
         handle  => $socketHandle,
         on_read => sub {
             my ($this, $buffref, $eof) = @_;
@@ -72,13 +75,18 @@ sub go
             return 0;
         },
      );
+     $self->_set_stream($streamObject);
      PBot->instance->loop->add($streamObject);
+     $self->on(write => sub {
+             my ($event, $data) = @_;
+             $streamObject->write($data);
+        }
+    );
 }
 
-sub write
-{
+sub write { 
     my ($self, $data) = @_;
-    $streamObject->write($data);
+    $self->stream->write($data);
 }
 
 1;
